@@ -10,14 +10,17 @@ inputs:
     required: true
     default: '/drr'
 
-  repo:
-    description:
-      'The destination repo for the issue. If blank, posts to PR head repo.'
-
   title:
     description: 'The issue title'
     required: true
     default: 'Doc Review Required'
+
+  repo:
+    description:
+      'The destination repo for the issue. If blank, posts to PR head repo.'
+
+  token:
+    description: The access token to create an issue.
 
 outputs:
   posted:

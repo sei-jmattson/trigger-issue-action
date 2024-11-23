@@ -6,8 +6,9 @@ GitHub action to generate an issue from text in a PR
 
 See `action.yml` for inputs.
 
-Assumes a GITHUB_TOKEN with sufficient permissions on source and destination
-repos.
+By default, posts issue to same repo (just for testing, really). Otherwise,
+specify the repo where you want the issue created, and provide a token with
+permission to do so (if necessary).
 
 ```yaml
 on:
@@ -19,5 +20,8 @@ steps:
     id: run-action
     uses: sei-jmattson/trigger-issue-action@v1
     with:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      trigger: /drr
+      title: Doc Review Requested
+      repo: mock/mock-docs
+      token: ${{ secrets.DOC_REPO_TOKEN}}
 ```

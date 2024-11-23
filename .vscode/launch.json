@@ -9,7 +9,6 @@
       "cwd": "${workspaceRoot}",
       "skipFiles": ["<node_internals>/**"],
       "type": "node",
-      "envFile": "${workspaceFolder}/.env",
       "console": "integratedTerminal"
     },
     {
