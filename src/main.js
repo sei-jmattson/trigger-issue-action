@@ -33,6 +33,7 @@ async function run() {
 
       if (issue_repo !== process.env.GITHUB_REPOSITORY) {
         core.debug('change auth')
+        process.env.GITHUB_TOKEN = core.getInput('repo_token')
         octokit = new octokit_action.Octokit({
           auth: core.getInput('repo_token')
         })
