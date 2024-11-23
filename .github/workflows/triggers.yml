@@ -22,3 +22,4 @@ jobs:
         with:
           GITHUB_TOKEN: ${{ secrets.TRIGGER_TOKEN }}
           trigger: /jam
+          title: JAM ON!
