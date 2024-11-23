@@ -1,0 +1,24 @@
+on:
+  pull_request:
+    types: [opened, edited]
+
+jobs:
+  triggers:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        id: checkout
+        uses: actions/checkout@v3
+
+      - name: Check docs trigger
+        id: docs-trigger
+        uses: ./
+        with:
+          GITHUB_TOKEN: ${{ secrets.TRIGGER_TOKEN }}
+
+      - name: Check jam trigger
+        id: jam-trigger
+        uses: ./
+        with:
+          GITHUB_TOKEN: ${{ secrets.TRIGGER_TOKEN }}
+          trigger: /jam
