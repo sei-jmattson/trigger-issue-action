@@ -2,9 +2,15 @@ on:
   pull_request:
     types: [opened, edited]
 
+permissions:
+  contents: read
+
 jobs:
   triggers:
     runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
     steps:
       - name: Checkout
         id: checkout
