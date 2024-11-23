@@ -31,5 +31,5 @@ job:
           trigger: /drr
           title: Doc Review Requested
           repo: mock/mock-docs
-          token: ${{ secrets.DOC_REPO_TOKEN}}
+          repo_token: ${{ secrets.DOC_REPO_TOKEN}}
 ```

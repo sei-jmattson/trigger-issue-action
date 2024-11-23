@@ -25,7 +25,7 @@ describe('action', () => {
     process.env = env
   })
 
-  it('posts an issue', async () => {
+  it('posts a local issue', async () => {
     process.env.GITHUB_REF_NAME = '42/merge'
     process.env.GITHUB_REPOSITORY = 'mock/mock'
     // Set the action's inputs as return values from core.getInput()
@@ -41,6 +41,27 @@ describe('action', () => {
     await main.run()
     expect(runMock).toHaveReturned()
     // expect(debugMock).toHaveBeenNthCalledWith(1, 'true')
+    expect(setOutputMock).toHaveBeenNthCalledWith(1, 'posted', true)
+  })
+
+  it('posts a remote issue', async () => {
+    process.env.GITHUB_REF_NAME = '42/merge'
+    process.env.GITHUB_REPOSITORY = 'mock/mock'
+    // Set the action's inputs as return values from core.getInput()
+    getInputMock.mockImplementation(name => {
+      switch (name) {
+        case 'trigger':
+          return '/jam'
+        case 'repo':
+          return 'jam/jam'
+        default:
+          return ''
+      }
+    })
+
+    await main.run()
+    expect(runMock).toHaveReturned()
+    expect(debugMock).toHaveBeenNthCalledWith(1, 'change auth')
     expect(setOutputMock).toHaveBeenNthCalledWith(1, 'posted', true)
   })
 
