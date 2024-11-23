@@ -1,18 +1,24 @@
-name: 'The name of your action here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: 'trigger-issue-action'
+description: 'Create issue on matching text'
+author: 'sei-jmattson'
 
-# Define your inputs here.
 inputs:
-  milliseconds:
-    description: 'Your input description here'
+  trigger:
+    description: 'The text on which to trigger. Text following trigger is included in issue body.'
     required: true
-    default: '1000'
+    default: '/drr'
 
-# Define your outputs here.
+  repo:
+    description: 'The destination repo for the issue. If blank, posts to PR head repo.'
+
+  title:
+    description: 'The issue title'
+    required: true
+    default: 'Doc Review Required'
+
 outputs:
-  time:
-    description: 'Your output description here'
+  posted:
+    description: 'True if issue posted'
 
 runs:
   using: node20

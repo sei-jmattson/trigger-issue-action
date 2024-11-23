@@ -1,5 +1,5 @@
 {
-  "name": "javascript-action",
+  "name": "trigger-issue-action",
   "description": "GitHub Actions JavaScript Template",
   "version": "0.0.0",
   "author": "",
@@ -64,7 +64,8 @@
     ]
   },
   "dependencies": {
-    "@actions/core": "^1.11.1"
+    "@actions/core": "^1.11.1",
+    "@octokit/action": "^7.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.26.0",

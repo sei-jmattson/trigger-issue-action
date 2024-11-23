@@ -2,6 +2,17 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "Debug Test",
+      "request": "launch",
+      "runtimeArgs": ["jest"],
+      "runtimeExecutable": "npx",
+      "cwd": "${workspaceRoot}",
+      "skipFiles": ["<node_internals>/**"],
+      "type": "node",
+      "envFile": "${workspaceFolder}/.env",
+      "console": "integratedTerminal"
+    },
+    {
       "name": "Debug Action",
       "type": "node",
       "request": "launch",

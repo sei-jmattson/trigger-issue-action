@@ -1,5 +1,5 @@
 const core = require('@actions/core')
-const { wait } = require('./wait')
+const octokit_action = require('@octokit/action')
 
 /**
  * The main function for the action.
@@ -7,18 +7,37 @@ const { wait } = require('./wait')
  */
 async function run() {
   try {
-    const ms = core.getInput('milliseconds', { required: true })
+    const octokit = new octokit_action.Octokit()
 
-    // Debug logs are only output if the `ACTIONS_STEP_DEBUG` secret is true
-    core.debug(`Waiting ${ms} milliseconds ...`)
+    const [owner, repo] = process.env.GITHUB_REPOSITORY.split('/')
+    const [pull_number, _] = process.env.GITHUB_REF_NAME.split('/')
 
-    // Log the current timestamp, wait, then log the new timestamp
-    core.debug(new Date().toTimeString())
-    await wait(parseInt(ms, 10))
-    core.debug(new Date().toTimeString())
+    let issue_repo = core.getInput('repo')
+    if (!issue_repo.includes('/')) {
+      issue_repo = `/${issue_repo}`
+    }
 
-    // Set outputs for other workflow steps to use
-    core.setOutput('time', new Date().toTimeString())
+    const [ir_owner, ir_repo] = issue_repo.split('/')
+
+    const { data: pullRequest } = await octokit.pulls.get({
+      owner,
+      repo,
+      pull_number
+    })
+
+    const trigger = core.getInput('trigger')
+    const re = new RegExp(`${trigger}(\\W*)(.*)`)
+    const match = pullRequest.body.match(re)
+
+    if (match) {
+      octokit.issues.create({
+        owner: ir_owner || owner,
+        repo: ir_repo || repo,
+        title: core.getInput('title'),
+        body: `[${repo} #${pull_number}](${pullRequest.html_url})\n${match.pop()}`
+      })
+      core.setOutput('posted', 'true')
+    }
   } catch (error) {
     // Fail the workflow run if an error occurs
     core.setFailed(error.message)
