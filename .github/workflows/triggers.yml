@@ -1,3 +1,5 @@
+name: Check Issue triggers
+
 on:
   pull_request:
     types: [opened, edited]

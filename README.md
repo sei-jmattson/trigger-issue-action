@@ -1,5 +1,9 @@
 # Trigger Issue Action
 
+[![GitHub Super-Linter](https://github.com/sei-jmattson/trigger-issue-action/actions/workflows/linter.yml/badge.svg)](https://github.com/super-linter/super-linter)
+![CI](https://github.com/sei-jmattson/trigger-issue-action/actions/workflows/ci.yml/badge.svg)
+![Coverage](badges/coverage.svg)
+
 GitHub Action to generate an issue from text in a PR
 
 ## Usage
