@@ -1,3 +1,5 @@
+name: Check Issue triggers
+
 on:
   pull_request:
     types: [opened, edited]
@@ -21,7 +23,7 @@ jobs:
         uses: ./
         with:
           repo: cmu-sei/TopoMojo
-          token: ${{ secrets.TRIGGER_TOKEN }}
+          repo_token: ${{ secrets.TRIGGER_TOKEN }}
 
       - name: Check jam trigger
         id: jam-trigger

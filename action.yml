@@ -19,7 +19,7 @@ inputs:
     description:
       'The destination repo for the issue. If blank, posts to PR head repo.'
 
-  token:
+  repo_token:
     description: The access token to create an issue.
 
 outputs:
