@@ -2,24 +2,30 @@ on:
   pull_request:
     types: [opened, edited]
 
+permissions:
+  contents: read
+
 jobs:
   triggers:
     runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
     steps:
       - name: Checkout
         id: checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Check docs trigger
         id: docs-trigger
         uses: ./
         with:
-          GITHUB_TOKEN: ${{ secrets.TRIGGER_TOKEN }}
+          repo: cmu-sei/TopoMojo
+          token: ${{ secrets.TRIGGER_TOKEN }}
 
       - name: Check jam trigger
         id: jam-trigger
         uses: ./
         with:
-          GITHUB_TOKEN: ${{ secrets.TRIGGER_TOKEN }}
           trigger: /jam
           title: JAM ON!

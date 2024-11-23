@@ -5,8 +5,8 @@ const Pulls = class {
   async get(p) {
     return Promise.resolve({
       data: {
-        html_url: 'https://gitub.com/mock/mock/pulls/42',
-        body: 'This PR does nothing, but /drr; This feature needs attention!'
+        html_url: 'https://github.com/mock/mock/pulls/42',
+        body: 'This PR does nothing, but /jam; This feature needs attention!'
       }
     })
   }

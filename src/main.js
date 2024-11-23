@@ -7,17 +7,9 @@ const octokit_action = require('@octokit/action')
  */
 async function run() {
   try {
-    const octokit = new octokit_action.Octokit()
-
+    let octokit = new octokit_action.Octokit()
     const [owner, repo] = process.env.GITHUB_REPOSITORY.split('/')
     const [pull_number, _] = process.env.GITHUB_REF_NAME.split('/')
-
-    let issue_repo = core.getInput('repo')
-    if (!issue_repo.includes('/')) {
-      issue_repo = `/${issue_repo}`
-    }
-
-    const [ir_owner, ir_repo] = issue_repo.split('/')
 
     const { data: pullRequest } = await octokit.pulls.get({
       owner,
@@ -30,14 +22,22 @@ async function run() {
     const match = pullRequest.body.match(re)
 
     if (match) {
-      octokit.issues.create({
-        owner: ir_owner || owner,
-        repo: ir_repo || repo,
+      const issue_repo = core.getInput('repo') || process.env.GITHUB_REPOSITORY
+      const [ir_owner, ir_repo] = issue_repo.split('/')
+      const issue = {
+        owner: ir_owner,
+        repo: ir_repo,
         title: core.getInput('title'),
         body: `[${repo} #${pull_number}](${pullRequest.html_url})\n${match.pop()}`
-      })
-      core.setOutput('posted', 'true')
+      }
+
+      if (issue_repo !== process.env.GITHUB_REPOSITORY) {
+        octokit = new octokit_action.Octokit({ auth: core.getInput('token') })
+      }
+
+      octokit.issues.create(issue)
     }
+    core.setOutput('posted', !!match)
   } catch (error) {
     // Fail the workflow run if an error occurs
     core.setFailed(error.message)
