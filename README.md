@@ -4,6 +4,8 @@ GitHub action to generate an issue from text in a PR
 
 ## Usage
 
+See `action.yml` for inputs.
+
 Assumes a GITHUB_TOKEN with sufficient permissions on source and destination
 repos.
 
