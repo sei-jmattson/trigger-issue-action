@@ -4,12 +4,15 @@ author: 'sei-jmattson'
 
 inputs:
   trigger:
-    description: 'The text on which to trigger. Text following trigger is included in issue body.'
+    description:
+      'The text on which to trigger. Text following trigger is included in issue
+      body.'
     required: true
     default: '/drr'
 
   repo:
-    description: 'The destination repo for the issue. If blank, posts to PR head repo.'
+    description:
+      'The destination repo for the issue. If blank, posts to PR head repo.'
 
   title:
     description: 'The issue title'

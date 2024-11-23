@@ -2,10 +2,10 @@
 
 GitHub action to generate an issue from text in a PR
 
-
 ## Usage
 
-Assumes a GITHUB_TOKEN with sufficient permissions on source and destination repos.
+Assumes a GITHUB_TOKEN with sufficient permissions on source and destination
+repos.
 
 ```yaml
 on:
