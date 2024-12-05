@@ -33,3 +33,5 @@ job:
           repo: mock/mock-docs
           repo_token: ${{ secrets.DOC_REPO_TOKEN}}
 ```
+
+jam
